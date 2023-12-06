@@ -1,0 +1,16 @@
+{% extends 'MiModeloDeClientes/padre.html'%}
+
+{% load static %}
+
+{% block content %}
+
+<div class="py-5 bg-image-full text-center" style="background-image: url('https://w.forfun.com/fetch/bd/bdc7ee51c168376ab759faef8aa37aeb.jpeg?w=1470&r=0.5625')">
+    <h1 style="text-align: center; color: cornsilk;">AGREGAR CLIENTE. </h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p}}
+        <button type="submit"> AGREGAR CLIENTE</button>
+    </form>
+
+</div>
+{% endblock %}
