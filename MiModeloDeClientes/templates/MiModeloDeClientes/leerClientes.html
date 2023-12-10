@@ -1,0 +1,22 @@
+{% extends 'MiModeloDeClientes/padre.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="py-5 bg-image-full text-center" style="background-image: url('https://w.forfun.com/fetch/bd/bdc7ee51c168376ab759faef8aa37aeb.jpeg?w=1470&r=0.5625')">
+    <h1 style="text-align: center; color: cornsilk;"> Clientes.</h1>
+
+    <ul style="list-style-type: none; padding: 0;">
+        {% for cliente in clientes %}
+            <li style="color: cornsilk; font-size: 16px; margin-bottom: 10px;">
+                Nombre: {{cliente.nombre}} <br>
+                Apellido: {{cliente.apellido}} <br>
+                Email: {{cliente.email}}
+            </li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'clientes' %}" style="text-decoration: none; color: #030117; background-color:aquamarine; padding: 10px 20px; border-radius: 5px; display: inline-block; margin-top: 20px;">Agregar cliente</a>
+
+</div>
+{% endblock %}

@@ -6,11 +6,22 @@
 
 <div class="py-5 bg-image-full text-center" style="background-image: url('https://w.forfun.com/fetch/bd/bdc7ee51c168376ab759faef8aa37aeb.jpeg?w=1470&r=0.5625')">
     <h1 style="text-align: center; color: cornsilk;">AGREGAR CLIENTE. </h1>
-    <form method="post">
+    {% if mi_formulario.errors %}
+        <p style="color: red;"> Revisar datos.</p>
+    {% endif %}
+    <form action="" method="post">
         {% csrf_token %}
-        {{ form.as_p}}
-        <button type="submit"> AGREGAR CLIENTE</button>
+        <table>
+            {{mi_formulario.as_table}}
+        </table>
+        <input type="submit" value="Enviar">
     </form>
-
+    
 </div>
+
+<style>    
+    label {
+        color:floralwhite;
+    }
+</style>
 {% endblock %}

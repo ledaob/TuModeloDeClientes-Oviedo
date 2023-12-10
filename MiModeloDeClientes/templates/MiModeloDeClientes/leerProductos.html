@@ -1,0 +1,24 @@
+{% extends 'MiModeloDeClientes/padre.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="py-5 bg-image-full text-center" style="background-image: url('https://w.forfun.com/fetch/bd/bdc7ee51c168376ab759faef8aa37aeb.jpeg?w=1470&r=0.5625')">
+    <h1 style="text-align: center; color: cornsilk;">Productos</h1>
+
+    <ul style="list-style-type: none; padding: 0;">
+        {% for producto in productos %}
+            <li style="color: cornsilk; font-size: 16px; margin-bottom: 10px;">
+                Nombre: {{ producto.nombre }} <br>
+                Precio: {{ producto.precio }} <br>
+                Descripcion: {{ producto.descripcion }}
+            </li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'productos' %}" style="text-decoration: none; color: #030117; background-color:aquamarine; padding: 10px 20px; border-radius: 5px; display: inline-block; margin-top: 20px;">Agregar producto</a>
+
+</div>
+{% endblock %}
+
+

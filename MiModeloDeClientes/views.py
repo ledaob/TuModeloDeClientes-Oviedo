@@ -1,51 +1,67 @@
 from django.shortcuts import render, redirect
+
 from .models import Producto, MetodoPago, Cliente
 from .forms import *
 
 def inicio (request):
     return render(request, 'MiModeloDeClientes/index.html')
 
-def clientes_list (request):
-    clientes = Cliente.objects.all()
-    return render (request, 'MiModeloDeClientes/clientes.html', {'clientes': clientes})
-
-def productos_list (request):
+def productos (request):
+    if request.method == "POST":
+        mi_formulario = ProductosFormulario(request.POST)
+        if mi_formulario.is_valid():
+            informacion = mi_formulario.cleaned_data
+            producto = Producto(nombre=informacion['nombre'], precio=informacion['precio'], descripcion=informacion['descripcion'])
+            producto.save()
+            return render (request, 'MiModeloDeClientes/index.html')
+    else:
+        mi_formulario = ProductosFormulario()
+        return render(request, 'MiModeloDeClientes/productos.html', {"mi_formulario": mi_formulario})
+    
+def leer_productos(request):
     productos = Producto.objects.all()
-    return render (request, 'MiModeloDeClientes/productos.html', {'productos': productos})
+    contexto = {"productos": productos}
 
-def metododepago_list (request):
-    metodo = MetodoPago.objects.all()
-    return render (request, 'MiModeloDeClientes/metododepago.html', {'metodo': metodo})
+    return render (request, "MiModeloDeClientes/leerProductos.html", contexto)
 
-def agregar_producto(request):
+
+def clientes (request):
     if request.method == "POST":
-        form = ProductosFormulario(request.POST)
-        if form.is_valid():
-            producto = form.save()
-            return redirect("MiModeloDeClientes:index")
-        else: 
-            form = ProductosFormulario()
-        return render(request, 'productos.html', {'form':form})
+        mi_formulario = ClientesFormulario(request.POST)
+        if mi_formulario.is_valid():
+            informacion = mi_formulario.cleaned_data
+            cliente = Cliente(nombre=informacion['nombre'], apellido=informacion['apellido'], email=informacion['email'])
+            cliente.save()
+            return render (request, 'MiModeloDeClientes/index.html')
+    else:
+        mi_formulario = ClientesFormulario()
+        return render(request, 'MiModeloDeClientes/clientes.html', {"mi_formulario": mi_formulario})
+    
 
-def agregar_cliente(request):
-    if request.method == "POST":
-        form = ClientesFormulario(request.POST)
-        if form.is_valid():
-            cliente = form.save()
-            return redirect("MiModeloDeClientes:index")
-        else:
-            form = ClientesFormulario()
-            return render(request, 'clientes.html', {'form':form})
-        
+def leer_clientes(request):
+    clientes = Cliente.objects.all()
+    contexto = {"clientes": clientes}
 
-def agregar_metodopago(request):
+    return render(request, "MiModeloDeClientes/leerClientes.html", contexto)
+
+
+
+def metodopago(request):
     if request.method == "POST":
-        form = MetodoDePagoFormulario(request.POST)
-        if form.is_valid():
-            metodo = form.save()
-            return redirect("MiModeloDeClientes:index")
-        else:
-            form = MetodoDePagoFormulario()
-            return render(request, 'metododepago.html', {'form':form})
-        
+        mi_formulario = MetodoDePagoFormulario(request.POST)
+        if mi_formulario.is_valid():
+            informacion = mi_formulario.cleaned_data
+            metodo = MetodoPago(nombre=informacion['nombre'])
+            metodo.save()
+            return render (request, 'MiModeloDeClientes/index.html')
+    else:
+        mi_formulario = MetodoDePagoFormulario()
+        return render(request, 'MiModeloDeClientes/metododepago.html', {"mi_formulario":mi_formulario})
+    
+
+def leer_metodopago(request):
+    metodos = MetodoPago.objects.all()
+    contexto = {"metodos": metodos}
+
+    return render (request, "MiModeloDeClientes/leerMetodos.html", contexto)
 

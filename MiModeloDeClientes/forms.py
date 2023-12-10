@@ -3,19 +3,20 @@ from .models import *
 
 class ClientesFormulario (forms.ModelForm):
     class Meta:
-        model : Cliente
-        fields: ['nombre', 'apellido', 'email'] 
+        model = Cliente
+        fields= ['nombre', 'apellido', 'email'] 
     
 
 class ProductosFormulario (forms.ModelForm):
     class Meta: 
-        model: Producto
-        fields: ['nombre', 'precio', 'descripcion']
+        model= Producto
+        fields= ['nombre', 'precio', 'descripcion']
 
 class MetodoDePagoFormulario(forms.ModelForm):
     class Meta:
-        model: MetodoPago
-        fields: ['nombre']
+        model= MetodoPago
+        fields= ['nombre']
+
 
 
 
